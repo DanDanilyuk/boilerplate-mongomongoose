@@ -1,10 +1,22 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 const mySecret = process.env['MONGO_URI'];
 
 mongoose.connect(mySecret, { useNewUrlParser: true, useUnifiedTopology: true });
 
-let Person;
+// - Person Prototype -
+// --------------------
+// name : string [required]
+// age :  number
+// favoriteFoods : array of strings (*)
+const personSchema = new Schema({
+  name:  {type: String, required: true},
+  age: Number,
+  favoriteFoods: [String]
+});
+
+const Person = mongoose.model("Person", personSchema);
 
 const createAndSavePerson = (done) => {
   done(null /*, data*/);
